@@ -672,7 +672,7 @@ private:
 
     std::function<void(const EventSignal<const SpeechSynthesisEventArgs&>&)> GetSpeechSynthesisEventConnectionsChangedCallback()
     {
-        return [=](const EventSignal<const SpeechSynthesisEventArgs&>& eventSignal) {
+        return [=, this](const EventSignal<const SpeechSynthesisEventArgs&>& eventSignal) {
             if (&eventSignal == &SynthesisStarted)
             {
                 synthesizer_started_set_callback(m_hsynth, SynthesisStarted.IsConnected() ? FireEvent_SynthesisStarted : nullptr, this);
@@ -694,7 +694,7 @@ private:
 
     std::function<void(const EventSignal<const SpeechSynthesisWordBoundaryEventArgs&>&)> GetWordBoundaryEventConnectionsChangedCallback()
     {
-        return [=](const EventSignal<const SpeechSynthesisWordBoundaryEventArgs&>& eventSignal) {
+        return [=, this](const EventSignal<const SpeechSynthesisWordBoundaryEventArgs&>& eventSignal) {
             if (&eventSignal == &WordBoundary)
             {
                 synthesizer_word_boundary_set_callback(m_hsynth, WordBoundary.IsConnected() ? FireEvent_WordBoundary : nullptr, this);
@@ -704,7 +704,7 @@ private:
 
     std::function<void(const EventSignal<const SpeechSynthesisVisemeEventArgs&>&)> GetVisemeEventConnectionsChangedCallback()
     {
-        return [=](const EventSignal<const SpeechSynthesisVisemeEventArgs&>& eventSignal) {
+        return [=, this](const EventSignal<const SpeechSynthesisVisemeEventArgs&>& eventSignal) {
             if (&eventSignal == &VisemeReceived)
             {
                 synthesizer_viseme_received_set_callback(m_hsynth, VisemeReceived.IsConnected() ? FireEvent_VisemeReceived : nullptr, this);
@@ -714,7 +714,7 @@ private:
 
     std::function<void(const EventSignal<const SpeechSynthesisBookmarkEventArgs&>&)> GetBookmarkEventConnectionsChangedCallback()
     {
-        return [=](const EventSignal<const SpeechSynthesisBookmarkEventArgs&>& eventSignal) {
+        return [=, this](const EventSignal<const SpeechSynthesisBookmarkEventArgs&>& eventSignal) {
             if (&eventSignal == &BookmarkReached)
             {
                 synthesizer_bookmark_reached_set_callback(m_hsynth, BookmarkReached.IsConnected() ? FireEvent_BookmarkReached : nullptr, this);

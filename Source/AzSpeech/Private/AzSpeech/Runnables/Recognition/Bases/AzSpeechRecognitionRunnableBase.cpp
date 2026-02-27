@@ -29,11 +29,11 @@ uint32 FAzSpeechRecognitionRunnableBase::Run()
 
 void FAzSpeechRecognitionRunnableBase::Exit()
 {
-	const FScopeTryLock Lock(&Mutex);
+    FScopeTryLock Lock(&Mutex);
 
 	FAzSpeechRunnableBase::Exit();
 
-	if (Lock.IsLocked() && SpeechRecognizer)
+	if (Lock.IsLocked() && SpeechRecognizer != nullptr)
 	{
 		SpeechRecognizer->Recognized.DisconnectAll();
 		SpeechRecognizer->Recognizing.DisconnectAll();

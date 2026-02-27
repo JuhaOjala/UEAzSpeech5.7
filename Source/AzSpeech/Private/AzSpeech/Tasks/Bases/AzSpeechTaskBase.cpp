@@ -73,7 +73,7 @@ void UAzSpeechTaskBase::Activate()
 
 void UAzSpeechTaskBase::StopAzSpeechTask()
 {
-	const FScopeTryLock TryLock(&Mutex);
+    FScopeTryLock TryLock(&Mutex);
 
 	if (!TryLock.IsLocked() || !UAzSpeechTaskStatus::IsTaskActive(this) || UAzSpeechTaskStatus::IsTaskReadyToDestroy(this))
 	{
@@ -116,7 +116,7 @@ void UAzSpeechTaskBase::SetSubscriptionOptions(const FAzSpeechSubscriptionOption
 
 void UAzSpeechTaskBase::SetReadyToDestroy()
 {
-	const FScopeTryLock TryLock(&Mutex);
+	 FScopeTryLock TryLock(&Mutex);
 
 	if (!TryLock.IsLocked() || UAzSpeechTaskStatus::IsTaskReadyToDestroy(this))
 	{

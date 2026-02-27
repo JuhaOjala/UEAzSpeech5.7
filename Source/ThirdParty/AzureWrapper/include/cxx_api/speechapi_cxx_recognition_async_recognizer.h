@@ -450,22 +450,22 @@ private:
 
     inline std::function<void(const EventSignal<const SessionEventArgs&>&)> GetSessionEventConnectionsChangedCallback()
     {
-        return [=](const EventSignal<const SessionEventArgs&>& sessionEvent) { this->SessionEventConnectionsChanged(sessionEvent); };
+        return [=, this](const EventSignal<const SessionEventArgs&>& sessionEvent) { this->SessionEventConnectionsChanged(sessionEvent); };
     }
 
     inline std::function<void(const EventSignal<const RecoEventArgs&>&)> GetRecoEventConnectionsChangedCallback()
     {
-        return [=](const EventSignal<const RecoEventArgs&>& recoEvent) { this->RecoEventConnectionsChanged(recoEvent); };
+        return [=, this](const EventSignal<const RecoEventArgs&>& recoEvent) { this->RecoEventConnectionsChanged(recoEvent); };
     }
 
     inline std::function<void(const EventSignal<const RecoCanceledEventArgs&>&)> GetRecoCanceledEventConnectionsChangedCallback()
     {
-        return [=](const EventSignal<const RecoCanceledEventArgs&>& recoEvent) { this->RecoCanceledEventConnectionsChanged(recoEvent); };
+        return [=, this](const EventSignal<const RecoCanceledEventArgs&>& recoEvent) { this->RecoCanceledEventConnectionsChanged(recoEvent); };
     }
 
     inline std::function<void(const EventSignal<const RecognitionEventArgs&>&)> GetRecognitionEventConnectionsChangedCallback()
     {
-        return [=](const EventSignal<const RecognitionEventArgs&>& recoEvent) { this->RecognitionEventConnectionsChanged(recoEvent); };
+        return [=, this](const EventSignal<const RecognitionEventArgs&>& recoEvent) { this->RecognitionEventConnectionsChanged(recoEvent); };
     }
 };
 

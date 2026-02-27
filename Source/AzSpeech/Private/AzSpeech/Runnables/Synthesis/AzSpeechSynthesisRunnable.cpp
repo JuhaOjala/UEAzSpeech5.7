@@ -78,11 +78,11 @@ uint32 FAzSpeechSynthesisRunnable::Run()
 
 void FAzSpeechSynthesisRunnable::Exit()
 {
-	const FScopeTryLock Lock(&Mutex);
+    FScopeTryLock Lock(&Mutex);
 
 	FAzSpeechRunnableBase::Exit();
 
-	if (Lock.IsLocked() && SpeechSynthesizer)
+	if (Lock.IsLocked() && SpeechSynthesizer != nullptr)
 	{
 		SpeechSynthesizer->VisemeReceived.DisconnectAll();
 		SpeechSynthesizer->SynthesisCanceled.DisconnectAll();

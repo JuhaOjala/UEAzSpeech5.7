@@ -187,7 +187,7 @@ FReply SAzSpeechAudioGenerator::HandleGenerateAudioButtonClicked()
 {
 	if (!UAzSpeechSettings::CheckAzSpeechSettings())
 	{
-		FReply::Handled();
+		return FReply::Handled();
 	}
 
 	UAzSpeechPropertiesGetter* const InternalGetter = NewObject<UAzSpeechPropertiesGetter>();

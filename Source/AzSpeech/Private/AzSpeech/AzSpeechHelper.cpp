@@ -33,6 +33,7 @@
 #include <Serialization/JsonReader.h>
 #include <Serialization/JsonSerializer.h>
 #include <Dom/JsonObject.h>
+#include "Sound/SoundWaveProcedural.h"
 #include <Misc/PackageName.h>
 
 #if WITH_EDITORONLY_DATA
@@ -175,7 +176,7 @@ USoundWave* UAzSpeechHelper::ConvertAudioDataToSoundWave(const TArray<uint8>& Ra
 	if (AzSpeech::Internal::HasEmptyParam(OutputModule) || AzSpeech::Internal::HasEmptyParam(OutputAssetName))
 	{
 		//Create a new object from the transient package
-		SoundWave = NewObject<USoundWave>(GetTransientPackage(), *OutputAssetName);
+		SoundWave = NewObject<USoundWaveProcedural>(GetTransientPackage(), *OutputAssetName);
 	}
 	else
 	{
@@ -224,6 +225,12 @@ USoundWave* UAzSpeechHelper::ConvertAudioDataToSoundWave(const TArray<uint8>& Ra
 		SoundWave->RawPCMDataSize = WaveInfo.SampleDataSize;
 		SoundWave->RawPCMData = static_cast<uint8*>(FMemory::Malloc(WaveInfo.SampleDataSize));
 		FMemory::Memcpy(SoundWave->RawPCMData, WaveInfo.SampleDataStart, WaveInfo.SampleDataSize);
+
+		// Syötetään lennosta luotu ääni Procedural Waveen (UE 5.7 Fix)
+		if (USoundWaveProcedural* ProceduralWave = Cast<USoundWaveProcedural>(SoundWave))
+		{
+			ProceduralWave->QueueAudio(SoundWave->RawPCMData, SoundWave->RawPCMDataSize);
+		}
 
 		SoundWave->Duration = static_cast<float>(NumFrames) / *WaveInfo.pSamplesPerSec;
 		SoundWave->SetSampleRate(*WaveInfo.pSamplesPerSec);

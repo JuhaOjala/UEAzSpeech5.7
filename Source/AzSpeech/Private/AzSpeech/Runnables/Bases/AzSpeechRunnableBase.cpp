@@ -104,7 +104,7 @@ void FAzSpeechRunnableBase::Exit()
 
 	AsyncTask(ENamedThreads::GameThread, [OwningTask_Local]
 	{
-		const FScopeTryLock Lock(&OwningTask_Local->Mutex);
+		 FScopeTryLock Lock(&OwningTask_Local->Mutex);
 
 		if (!Lock.IsLocked())
 		{
